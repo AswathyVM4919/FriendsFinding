@@ -1,0 +1,34 @@
+﻿@model FriendsFinding.Models.FriendSearchViewModel
+<table class="table">
+    <thead>
+        <tr>
+            <td></td>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>DOB</th>
+            <th>Favorite Color</th>
+            <th>Favorite Actor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Friends != null)
+        {
+            foreach (var friend in Model.Friends)
+            {
+            <tr>
+                @{ var url = Url.Content("~/ProfilePictures/" + friend.ProfilePicture);
+
+                }
+                <td><img src="@url" width="150" height="150"></td>
+                <td>@friend.Name</td>
+                <td>@friend.Gender</td>
+                <td>@friend.Email</td>
+                <td>@friend.DOB</td>
+                <td>@friend.FavoriteColor</td>
+                <td>@friend.FavoriteActor</td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>

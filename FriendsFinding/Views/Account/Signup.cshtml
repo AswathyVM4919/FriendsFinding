@@ -1,0 +1,112 @@
+﻿@model FriendsFinding.Models.TblUser
+
+@{
+    ViewBag.Title = "Signp";
+    Layout = "~/Views/Shared/_SignupLayout.cshtml";
+}
+
+<h2>Create a new account</h2>
+
+
+@using (Html.BeginForm("Signup", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.DropDownList("Gender", (IEnumerable<SelectListItem>)ViewBag.Gender,
+               new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Confirmpassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Confirmpassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Confirmpassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-6">
+                @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "form-label" })
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file"})
+                @Html.ValidationMessageFor(model => model.ProfilePictureFile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.FavoriteColor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.FavoriteColor, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.FavoriteColor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.FavoriteActor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.FavoriteActor, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.FavoriteActor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <button id="signup" type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

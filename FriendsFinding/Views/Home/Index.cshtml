@@ -1,0 +1,25 @@
+﻿@model IEnumerable<FriendsFinding.Models.TblUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2 class="text-center">User Profiles</h2>
+
+<div class="row">
+    @foreach (var user in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    @{ var url = Url.Content("~/ProfilePictures/" + user.ProfilePicture); ;
+                    }
+                    <div class="profile-icon justify-content-evenly"><img src="@url" width="300" height="280"></div>
+                    <p class="card-title"><strong>@user.Name</strong> </p>
+                    <p class="card-text"><strong>@user.Designation</strong></p>
+                    <a href="@Url.Action("UserProfile", "Home",new { id = user.Id } )" class="btn btn-primary" onclick="">View Profile</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,37 @@
+﻿@model FriendsFinding.Models.FriendSearchViewModel
+
+<h2>Search Friends</h2>
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Post, new { id = "searchForm" }))
+{
+    <div>
+        Name: @Html.TextBoxFor(m => m.Name)
+        Gender: @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female" }), "Select Gender")
+        DOB: @Html.TextBoxFor(m => m.DOB, "{0:yyyy-MM-dd}", new { type = "date" })
+        Favorite Color: @Html.TextBoxFor(m => m.FavoriteColor)
+        Favorite Actor: @Html.TextBoxFor(m => m.FavoriteActor)
+        <input type="submit" value="Search" />
+    </div>
+}
+<br />
+<div id="results">
+    @Html.Partial("_FriendList", Model)
+</div>
+@section Scripts {
+    <script type="text/javascript">$(document).ready(function () {
+    $('#searchForm').submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function (result) {
+                $('#results').html(result); 
+            }
+            });
+        });
+    });
+</script>
+
+}

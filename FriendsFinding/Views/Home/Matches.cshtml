@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FriendsFinding.Models.TblUser>
+
+<h2>Matched Profiles</h2>
+
+@if (!Model.Any())
+{
+    <p>No matches found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Country</th>
+                <th>Favorite Color</th>
+                <th>Favorite Actor</th>
+                <th>Match Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var match in Model)
+            {
+                <tr>
+                    @{ var url = Url.Content("~/ProfilePictures/" + @match.ProfilePicture);
+
+                    }
+                    <td><img src="@url" width="150" height="150"></td>
+                    <td>@match.Name</td>
+                    <td>@match.Gender</td>
+                    <td>@match.Country</td>
+                    <td>@match.FavoriteColor</td>
+                    <td>@match.FavoriteActor</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,74 @@
+﻿@model FriendsFinding.Models.TblUser
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card-body">
+                @{ var url = Url.Content("~/ProfilePictures/" + Model.ProfilePicture);
+
+                }
+                <div class="profile-icon justify-content-evenly"><img src="@url" width="300" height="280"></div>
+                <p class="card-title"><strong>@Model.Name</strong> </p>
+                <p class="card-text"><strong>@Model.Designation</strong></p>
+                @if (!Model.IsFriend)
+                {
+                    <button id="addFriendBtn" class="btn btn-primary" onclick="Addfriend(@Model.Id )"> Add Friend</button>
+                }
+                else
+                {
+                    <label class=" btn btn-primary">Friend</label>
+                }
+
+            </div>
+        </div>
+        <div class="col-4">
+            @if (Model.IsFriend)
+            { 
+                <div class="card-body border-1">
+                    <br />
+                    <br />
+                    <br />
+                    <p class="card-text">Gender         : @Model.Gender</p>
+                    <p class="card-text">Country        : @Model.Country</p>
+                    <p class="card-text">Date Of Birth  : @Model.DOB</p>
+                    <p class="card-text">Email          : @Model.Email</p>
+                    <p class="card-text">Favorite Actor : @Model.FavoriteActor </p>
+                    <p class="card-text">Favorite Color : @Model.FavoriteColor</p>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<br />
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section Scripts {
+    <script type="text/javascript">
+        function Addfriend(id) {
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddFriend", "Home")',
+                data: { friendId: id },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        $('#addFriendBtn').prop('disabled', true).text('Friend Request Sent');
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        }
+    </script>
+}
