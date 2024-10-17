@@ -23,6 +23,8 @@
                     @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-1" })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </div>
+                <span class="text-danger">@ViewBag.Message</span>
+                <br />
                 <div>
                     <button id="login" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                 </div>

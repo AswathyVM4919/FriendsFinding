@@ -23,7 +23,6 @@ namespace FriendsFinding.Controllers
         {
             try
             {
-                FillGender();
                 return View();
             }
             catch(Exception ex)
@@ -39,7 +38,6 @@ namespace FriendsFinding.Controllers
         {  
            try
            {
-             FillGender();
              if (model.ProfilePictureFile != null)
              {
                string fileExtension = Path.GetExtension(model.ProfilePictureFile.FileName).ToLowerInvariant();
@@ -145,15 +143,6 @@ namespace FriendsFinding.Controllers
             }
             return View();
             
-        }
-        public void FillGender()
-        {
-            List<SelectListItem> GenderList = new List<SelectListItem>();
-            GenderList.Add(new SelectListItem { Text = "Select Gender", Value = "", Selected = true });
-            GenderList.Add(new SelectListItem { Text = "Male", Value = "Male" });
-            GenderList.Add(new SelectListItem { Text = "Female", Value = "Female" });
-            GenderList.Add(new SelectListItem { Text = "Other", Value = "Other" });
-            ViewBag.Gender = GenderList;
         }
         private string PasswordEncryption(string password)
         {

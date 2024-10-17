@@ -87,36 +87,44 @@ namespace FriendsFinding.Controllers
         [HttpPost]
         public ActionResult Search(FriendSearchViewModel searchModel)
         {
-            var friends = _dbcontext.TblUsers.AsQueryable();
-            if (!string.IsNullOrEmpty(searchModel.Name))
+            try
             {
-                friends = friends.Where(f => f.Name.Contains(searchModel.Name));
-            }
-             if (!string.IsNullOrEmpty(searchModel.Gender))
-            {
-                friends = friends.Where(f => f.Gender == searchModel.Gender);
-            }
-            if (searchModel.DOB.HasValue)
-            {
-                friends = friends.Where(f => f.DOB == searchModel.DOB);
-            }
-            if (!string.IsNullOrEmpty(searchModel.FavoriteColor))
-            {
-                friends = friends.Where(f => f.FavoriteColor == searchModel.FavoriteColor);
-            }
-            if(!string.IsNullOrEmpty(searchModel.FavoriteActor))
-            {
-                friends = friends.Where(f => f.FavoriteActor.Contains(searchModel.FavoriteActor));
-            }
+                var friends = _dbcontext.TblUsers.AsQueryable();
+                if (!string.IsNullOrEmpty(searchModel.Name))
+                {
+                    friends = friends.Where(f => f.Name.Contains(searchModel.Name));
+                }
+                if (!string.IsNullOrEmpty(searchModel.Gender))
+                {
+                    friends = friends.Where(f => f.Gender == searchModel.Gender);
+                }
+                if (searchModel.DOB.HasValue)
+                {
+                    friends = friends.Where(f => f.DOB == searchModel.DOB);
+                }
+                if (!string.IsNullOrEmpty(searchModel.FavoriteColor))
+                {
+                    friends = friends.Where(f => f.FavoriteColor == searchModel.FavoriteColor);
+                }
+                if (!string.IsNullOrEmpty(searchModel.FavoriteActor))
+                {
+                    friends = friends.Where(f => f.FavoriteActor.Contains(searchModel.FavoriteActor));
+                }
+                TblUser currentUser = _dbcontext.TblUsers.FirstOrDefault(u => u.Email == User.Identity.Name);
+                friends = friends.Where(f => f.Id != currentUser.Id);
+                searchModel.Friends = friends.ToList();
 
-             searchModel.Friends = friends.ToList();
-           
-             if (Request.IsAjaxRequest())
-             {
-                 return PartialView("_FriendList", searchModel);
-             }
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_FriendList", searchModel);
+                }
 
-            return View("Index", searchModel);
+                return View("Index", searchModel);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         public ActionResult Matches()
         {
@@ -141,7 +149,6 @@ namespace FriendsFinding.Controllers
             {
                 throw ex;
             }
-           
         }
         
     }
